@@ -2,18 +2,9 @@
 
 Steps to manually build the AWS environment
 
-- create VPC
-- create subnet
-- create internet gateway
-- attach internet gatway
-- allocate elastic ip
 - security group creation
 - create an instance
-- attach the elastic ip to the instance
-- associate the elastic ip adress with the instance
 - change the dns record to this elastic ip address
-- create a route table with a route to the internet gateway
-- associate the route table with the subnet
 - copy the certifcates for the website to the host
 ```
 scp -r patrick.bg.hashicorp-success.com ubuntu@patrick.bg.hashicorp-success.com:/tmp
