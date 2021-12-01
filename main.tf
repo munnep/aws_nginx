@@ -14,7 +14,7 @@ resource "aws_instance" "web_server" {
     host        = self.public_ip
     user        = "ubuntu"
     password    = ""
-    private_key = file("private_key/patrick-key-pair.pem")
+    private_key = file("private_key/${var.private_key}")
   }
 
   provisioner "file" {
@@ -22,11 +22,19 @@ resource "aws_instance" "web_server" {
     destination = "/tmp"
   }
 
+  provisioner "file" {
+    source      = "config"
+    destination = "/tmp"
+  }
+
   provisioner "remote-exec" {
     inline = [
-      "sudo apt-get update",  
-      "sudo apt-install nginx -y",
-      "sudo mkdir -p /etc/letsencrypt/live/patrick.bg.hashicorp-success.com/
+      "sudo apt-get update",
+      "sudo apt-get install nginx -y",
+      "sudo mkdir -p /etc/letsencrypt/live/website/",
+      "sudo cp /tmp/certificates/* /etc/letsencrypt/live/patrick.bg.hashicorp-success.com/",
+      "sudo cp /tmp/config/default /etc/nginx/sites-enabled/default",
+      "sudo service nginx restart"
     ]
   }
 }
@@ -87,8 +95,8 @@ resource "aws_security_group" "web_server_sg" {
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = "Z10QHT9XL7XFZU"
-  name    = "patrick.bg.hashicorp-success.com"
+  zone_id = var.route53_zone_id
+  name    = var.route53_zone_dns
   type    = "A"
   ttl     = "300"
   records = [aws_instance.web_server.public_ip]
