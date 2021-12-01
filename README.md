@@ -7,12 +7,14 @@ Steps involved are:
 - Creating a Security group that allows traffic over port 443 to the website
 - Create a DNS record within AWS route 53 pointing to the public IP address of the webserver
 
+There is a short [README.md](manual_notes/README.md) on how to do all this manually without Terraform. This is just to give you a better idea on the steps involved. Please use this only if you do not want to use Terraform. 
+
 # Prerequisites
 
 ## SSL certificate
 You need to have valid SSL certificates that can be used with the DNS name you will be using to contact the webserver.  
   
-If you don't have valid SSL certificates you can create one for free using Let's Encrypt. This repository includes an instruction on how to do this. [See documentation](nginx_create_certificate/README.md)   
+If you don't have valid SSL certificates you can create one for free using Let's Encrypt. This repository includes an instruction on how to do this. [See documentation](nginx_create_certificate/README.md) This documentation will use Vagrant to create a server that can be used to create the SSL certificates. If you have SSL certificates you can skip this manual.    
 
 Your SSL certificates should be placed in the ```certificates``` folder
 
