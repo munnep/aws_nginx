@@ -1,8 +1,16 @@
-# NGINX
+# Let's Encrypt
 
-We create a valid certificate we can use in our environment
+This README describes how to create valid certificates to use for websites using Let's Encrypt. Using Let's Encrypt enables you to create free certificates. 
 
-# steps
+You will use a vagrant box to have a server on which to create the certificates and test them. 
+
+# Prerequisites
+
+Vagrant [See documentation](https://www.vagrantup.com/docs/installation)  
+Virtualbox [See documentation](https://www.virtualbox.org/wiki/Downloads)
+
+
+# Create Let's Encrypt certificates
 
 - in AWS create a valid DNS record in route53 
 ```
@@ -89,6 +97,11 @@ Before continuing, verify the record is deployed.
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Press Enter to Continue
 ```
+- create this DNS TXT record in aws route53
+```
+_acme-challenge.patrick.bg.hashicorp-success.com
+
+```
 - Check in a different terminal
 ```
 dig TXT _acme-challenge.patrick.bg.hashicorp-success.com
@@ -142,7 +155,7 @@ IMPORTANT NOTES:
 cp -apL /etc/letsencrypt/live/patrick.bg.hashicorp-success.com /vagrant
 ```
 
-## NGINX configuration
+## Test the NGINX configuration with the certificates
 - install nginx
 ```
 sudo apt-get install -y nginx
