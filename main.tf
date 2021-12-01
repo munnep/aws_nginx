@@ -1,12 +1,33 @@
 resource "aws_instance" "web_server" {
-  ami           = var.ima
-  instance_type = "t2.micro"
-  key_name      = var.key_pair
+  ami             = var.ima
+  instance_type   = "t2.micro"
+  key_name        = var.key_pair
   security_groups = [aws_security_group.web_server_sg.name]
 
 
   tags = {
     Name = var.instance_name
+  }
+
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ubuntu"
+    password    = ""
+    private_key = file("private_key/patrick-key-pair.pem")
+  }
+
+  provisioner "file" {
+    source      = "certificates"
+    destination = "/tmp"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",  
+      "sudo apt-install nginx -y",
+      "sudo mkdir -p /etc/letsencrypt/live/patrick.bg.hashicorp-success.com/
+    ]
   }
 }
 
@@ -21,35 +42,35 @@ resource "aws_security_group" "web_server_sg" {
   description = "web_server_sg"
 
   ingress {
-    description      = "https from internet"
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "https from internet"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    description      = "http from internet"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "http from internet"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    description      = "ssh from internet"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "ssh from internet"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    description      = "icmp from internet"
-    from_port        = 0
-    to_port          = 0
-    protocol         = "icmp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "icmp from internet"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
