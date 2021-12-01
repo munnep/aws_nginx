@@ -8,8 +8,8 @@ server {
 	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 
-	ssl_certificate /etc/letsencrypt/live/patrick.bg.hashicorp-success.com/full_chain.pem; # managed by Certbot
-	ssl_certificate_key /etc/letsencrypt/live/patrick.bg.hashicorp-success.com/priv_key.pem; # managed by Certbot
+	ssl_certificate /etc/letsencrypt/live/website/full_chain.pem; # managed by Certbot
+	ssl_certificate_key /etc/letsencrypt/live/website/priv_key.pem; # managed by Certbot
 
 	root /var/www/html;
 	index index.html index.htm index.nginx-debian.html;

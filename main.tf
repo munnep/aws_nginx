@@ -32,7 +32,7 @@ resource "aws_instance" "web_server" {
       "sudo apt-get update",
       "sudo apt-get install nginx -y",
       "sudo mkdir -p /etc/letsencrypt/live/website/",
-      "sudo cp /tmp/certificates/* /etc/letsencrypt/live/patrick.bg.hashicorp-success.com/",
+      "sudo cp /tmp/certificates/* /etc/letsencrypt/live/website/",
       "sudo cp /tmp/config/default /etc/nginx/sites-enabled/default",
       "sudo service nginx restart"
     ]
