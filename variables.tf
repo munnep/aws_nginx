@@ -9,6 +9,9 @@ variable "ima" {
 variable "key_pair" {
   default = "patrick-key-pair"
 }
+variable "private_key" {
+  default = "patrick-key-pair.pem"
+}
 
 variable "route53_zone_id" {
   default = "Z10QHT9XL7XFZU"
@@ -18,7 +21,4 @@ variable "route53_zone_dns" {
   default = "patrick.bg.hashicorp-success.com"
 }
 
-variable "private_key" {
-  default = "patrick-key-pair.pem"
-}
 
