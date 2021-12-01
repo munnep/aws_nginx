@@ -1,6 +1,6 @@
 # AWS manual build
 
-Steps to manually build the AWS environment
+Steps to manually build the AWS environment. They give you an idea on how to do things without using Terraform. Please use the steps for Terraform
 
 - security group creation
 - create an instance
