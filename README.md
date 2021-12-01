@@ -68,11 +68,10 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 Outputs:
 
 instance_public_ip = "52.87.193.96"
+website_url = "https://patrick.bg.hashicorp-success.com"
 ```
-- You should be able to connect to your DNS name with a secure https connection in your webbrowser
-```
-https://<your_DNS_name>
-```
+- You should be able to connect to the website_url with a secure https connection in your web browser
+
 
 # Done
 - [x] create EC2 instance with Public IP on it
