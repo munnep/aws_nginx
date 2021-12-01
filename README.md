@@ -1,16 +1,33 @@
 # Nginx webserver on AWS with a valid certificate
 
-This README describes how to create a webserver with SSL certificates using terraform in AWS
+In this repository you will deploy a webserver with Terraform on AWS. This webserver should use your own SSL certificates for a secure connection to your website. 
+
+Steps involved are: 
+- Creating an EC2 instance with Ubuntu in a default VPC
+- Creating a Security group that allows traffic over port 443 to the website
+- Create a DNS record within AWS route 53 pointing to the public IP address of the webserver
 
 # Prerequisites
 
-AWS account  
-AWS key pair   
-SSL certificates for your website. Example on how to create them for free. [See documentation](nginx_create_certificate/README.md)   
+## SSL certificate
+You need to have valid SSL certificates that can be used with the DNS name you will be using to contact the webserver.  
+  
+If you don't have valid SSL certificates you can create one for free using Let's Encrypt. This repository includes an instruction on how to do this. [See documentation](nginx_create_certificate/README.md)   
+
+Your SSL certificates should be placed in the ```certificates``` folder
+
+## AWS
+We will be using AWS and use the environment of us-east-1. Make sure you have the following
+- AWS account  
+- AWS Key Pair used for connecting to the Ubuntu server  
+- Install AWS cli [See documentation](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+
+## Install terraform  
+See the following documentation [How to install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+
 
 # How to
 
-## Use the Test Kitchen plugin
 - Clone the repository to your local machine
 ```
 git clone https://github.com/munnep/aws_nginx.git
@@ -19,8 +36,8 @@ git clone https://github.com/munnep/aws_nginx.git
 ```
 cd aws_nginx
 ```
-- copy your private key from AWS to the directory ```private_key```
-- copy your SSL certificates to the directory ```certificates```
+- copy your private key (AWS Key Pair) from AWS to the directory ```private_key```
+- copy your SSL certificates to the directory ```certificates```. Note the filenames you should use. 
 ```
 full_chain.pem
 priv_key.pem
@@ -52,13 +69,17 @@ Outputs:
 
 instance_public_ip = "52.87.193.96"
 ```
+- You should be able to connect to your DNS name with a secure https connection in your webbrowser
+```
+https://<your_DNS_name>
+```
 
-
-# to do 
-
+# Done
 - [x] create EC2 instance with Public IP on it
 - [x] add security group for ssh, ICMP (ping) and http/https
 - [x] create fqdn dns entry on domain (use one available on r53)
 - [x] get a valid ssl cert for dns entry
 - [x] configure a nginx web
 - [x] test certificate works - on a desktop browser padlock closes"
+
+# To do 
